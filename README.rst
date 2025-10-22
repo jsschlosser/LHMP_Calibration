@@ -1,0 +1,1 @@
+The Langley-Hampton Multispectral Polarimeter (**LHMP**) is an atmospgeric polarimeter built with commercial off-the-shelf components (**COTs**). This codebase provides the resources to capture and correct data captured from the LHMP. This is an open-source Python codebase.
