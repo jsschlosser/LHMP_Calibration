@@ -102,7 +102,7 @@
 <section id="configuring-the-raspberry-pi">
 <h2>Configuring the Raspberry Pi<a class="headerlink" href="#configuring-the-raspberry-pi" title="Link to this heading"></a></h2>
 <p>This section summarizes the steps required to setup the environment needed to run a GigE Vision (i.e., genicam) camera on a Raspberry Pi 4b. Here we use a Pheonix 5.0 Polarization camera (LUCID Vision Labs Inc., 2023) that is built around Sony’s IMX250MYR CMOS.</p>
-<dl>
+<dl class="simple">
 <dt>Hardware Requirements</dt><dd><ol class="arabic simple">
 <li><dl class="simple">
 <dt>Any GigE vision camera should work however it must be a GenICam compliant machine vision camera/device.</dt><dd><ol class="loweralpha simple">
@@ -126,58 +126,50 @@
 <li><p>Power Raspberry Pi.</p></li>
 </ol>
 </dd>
-<dt>Install ArenaSDK Software (ArenaSDK_v0.1.78_Linux_ARM64)</dt><dd><p><strong>Note</strong>: Full details in ‘README_ARM64.txt’</p>
-<ol class="loweralpha">
-<li><dl>
-<dt>Set jumbo frames</dt><dd><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo<span class="w"> </span>ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>enp0s8<span class="w"> </span>mtu<span class="w"> </span><span class="m">9000</span>
+</dl>
+<p>Install ArenaSDK Software (ArenaSDK_v0.1.78_Linux_ARM64)
+.. note:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Full details in &#39;README_ARM64.txt&#39;
+
+
+a) Set jumbo frames
+        .. code-block:: console
+
+                $ sudo ip link set enp0s8 mtu 9000
+
+b) Set receive buffers
+        .. code-block:: console
+
+                $ sudo ethtool -g enp0s8
+                $ sudo ethtool -G enp0s8 rx 4096
+
+c) Set socket buffer size
+        .. code-block:: console
+
+                $ sudo sh -c &quot;echo &#39;net.core.rmem_default=33554432&#39; &gt;&gt; /etc/sysctl.conf&quot;
+                $ sudo sh -c &quot;echo &#39;net.core.rmem_max=33554432&#39; &gt;&gt; /etc/sysctl.conf&quot;
+                $ sudo sysctl -p
+
+d) Reverse path filtering
+        .. code-block:: console
+
+                $ sudo sh -c &quot;echo &#39;net.core.rmem_default=33554432&#39; &gt;&gt; /etc/sysctl.conf&quot;
+                $ sudo sh -c &quot;echo &#39;net.core.rmem_max=33554432&#39; &gt;&gt; /etc/sysctl.conf&quot;
+                $ sudo sysctl -p
+
+e) Extract the tarball to your desired location:
+        .. code-block:: console
+
+                $ tar -xvzf ArenaSDK_Linux_ARM64.tar.gz
+
+f) Run the ArenaSDK_Linux_ARM64.conf file
+        .. code-block:: console
+
+                $ cd ~/Documents/ArenaSDK_v0.1.78_Linux_ARM64/ArenaSDK_Linux_ARM64
+                $ sudo sh Arena_SDK_ARM64.conf
 </pre></div>
 </div>
-</dd>
-</dl>
-</li>
-<li><dl>
-<dt>Set receive buffers</dt><dd><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo<span class="w"> </span>ethtool<span class="w"> </span>-g<span class="w"> </span>enp0s8
-<span class="gp">$ </span>sudo<span class="w"> </span>ethtool<span class="w"> </span>-G<span class="w"> </span>enp0s8<span class="w"> </span>rx<span class="w"> </span><span class="m">4096</span>
-</pre></div>
-</div>
-</dd>
-</dl>
-</li>
-<li><dl>
-<dt>Set socket buffer size</dt><dd><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo<span class="w"> </span>sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;echo &#39;net.core.rmem_default=33554432&#39; &gt;&gt; /etc/sysctl.conf&quot;</span>
-<span class="gp">$ </span>sudo<span class="w"> </span>sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;echo &#39;net.core.rmem_max=33554432&#39; &gt;&gt; /etc/sysctl.conf&quot;</span>
-<span class="gp">$ </span>sudo<span class="w"> </span>sysctl<span class="w"> </span>-p
-</pre></div>
-</div>
-</dd>
-</dl>
-</li>
-<li><dl>
-<dt>Reverse path filtering</dt><dd><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo<span class="w"> </span>sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;echo &#39;net.core.rmem_default=33554432&#39; &gt;&gt; /etc/sysctl.conf&quot;</span>
-<span class="gp">$ </span>sudo<span class="w"> </span>sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;echo &#39;net.core.rmem_max=33554432&#39; &gt;&gt; /etc/sysctl.conf&quot;</span>
-<span class="gp">$ </span>sudo<span class="w"> </span>sysctl<span class="w"> </span>-p
-</pre></div>
-</div>
-</dd>
-</dl>
-</li>
-<li><dl>
-<dt>Extract the tarball to your desired location:</dt><dd><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>tar<span class="w"> </span>-xvzf<span class="w"> </span>ArenaSDK_Linux_ARM64.tar.gz
-</pre></div>
-</div>
-</dd>
-</dl>
-</li>
-<li><dl>
-<dt>Run the ArenaSDK_Linux_ARM64.conf file</dt><dd><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span>~/Documents/ArenaSDK_v0.1.78_Linux_ARM64/ArenaSDK_Linux_ARM64
-<span class="gp">$ </span>sudo<span class="w"> </span>sh<span class="w"> </span>Arena_SDK_ARM64.conf
-</pre></div>
-</div>
-</dd>
-</dl>
-</li>
-</ol>
-</dd>
+<dl>
 <dt>Install ImpactAcquire</dt><dd><ol class="loweralpha">
 <li><p>Download latest version of ImpactAcquire-arm64-linux-X.X.X.sh from dhttp://static.matrix-vision.com/mvIMPACT_Acquire/</p></li>
 <li><p>Place ImpactAcquire-arm64-linux-X.X.X.sh in ‘~/.’</p></li>
@@ -250,7 +242,7 @@
 </section>
 <section id="instructions-for-building-sphinx-documentation-locally">
 <h2>Instructions for building sphinx documentation locally<a class="headerlink" href="#instructions-for-building-sphinx-documentation-locally" title="Link to this heading"></a></h2>
-<p>This section describes howw to build the sphinx documentation locally.</p>
+<p>This section describes how to build the sphinx documentation locally.</p>
 <blockquote>
 <div><ol class="loweralpha">
 <li><dl>

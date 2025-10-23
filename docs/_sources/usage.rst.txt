@@ -32,7 +32,10 @@ Setup Hardware
 	b) Power Raspberry Pi.
 
 Install ArenaSDK Software (ArenaSDK_v0.1.78_Linux_ARM64)
-	**Note**: Full details in 'README_ARM64.txt'
+.. note::
+
+	Full details in 'README_ARM64.txt'
+
 
 	a) Set jumbo frames
 		.. code-block:: console
@@ -122,7 +125,7 @@ Run programs in Harvesters
 Instructions for building sphinx documentation locally
 ------------------------------------------------------
 
-This section describes howw to build the sphinx documentation locally. 
+This section describes how to build the sphinx documentation locally. 
 
 	a) Setup virtual environment.
 		.. code-block:: console
