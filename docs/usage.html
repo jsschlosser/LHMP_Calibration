@@ -102,7 +102,7 @@
 <section id="configuring-the-raspberry-pi">
 <h2>Configuring the Raspberry Pi<a class="headerlink" href="#configuring-the-raspberry-pi" title="Link to this heading"></a></h2>
 <p>This section summarizes the steps required to setup the environment needed to run a GigE Vision (i.e., genicam) camera on a Raspberry Pi 4b. Here we use a Pheonix 5.0 Polarization camera (LUCID Vision Labs Inc., 2023) that is built around Sony’s IMX250MYR CMOS.</p>
-<dl class="simple">
+<dl>
 <dt>Hardware Requirements</dt><dd><ol class="arabic simple">
 <li><dl class="simple">
 <dt>Any GigE vision camera should work however it must be a GenICam compliant machine vision camera/device.</dt><dd><ol class="loweralpha simple">
@@ -127,96 +127,93 @@
 </ol>
 </dd>
 <dt>Install ArenaSDK Software (ArenaSDK_v0.1.78_Linux_ARM64)</dt><dd><p><strong>Note</strong>: Full details in ‘README_ARM64.txt’</p>
-<ol class="loweralpha simple">
-<li><dl class="simple">
-<dt>Set jumbo frames</dt><dd><p>$ sudo ip link set enp0s8 mtu 9000</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Set receive buffers</dt><dd><p>$ sudo ethtool -g enp0s8
+<p>a) Set jumbo frames
+.. code-block:: console</p>
+<blockquote>
+<div><p>$ sudo ip link set enp0s8 mtu 9000</p>
+</div></blockquote>
+<p>b) Set receive buffers
+.. code-block:: console</p>
+<blockquote>
+<div><p>$ sudo ethtool -g enp0s8
 $ sudo ethtool -G enp0s8 rx 4096</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Set socket buffer size</dt><dd><p>$ sudo sh -c “echo ‘net.core.rmem_default=33554432’ &gt;&gt; /etc/sysctl.conf”
+</div></blockquote>
+<p>c) Set socket buffer size
+.. code-block:: console</p>
+<blockquote>
+<div><p>$ sudo sh -c “echo ‘net.core.rmem_default=33554432’ &gt;&gt; /etc/sysctl.conf”
 $ sudo sh -c “echo ‘net.core.rmem_max=33554432’ &gt;&gt; /etc/sysctl.conf”
 $ sudo sysctl -p</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Reverse path filtering</dt><dd><p>$ sudo sh -c “echo ‘net.core.rmem_default=33554432’ &gt;&gt; /etc/sysctl.conf”
+</div></blockquote>
+<p>d) Reverse path filtering
+.. code-block:: console</p>
+<blockquote>
+<div><p>$ sudo sh -c “echo ‘net.core.rmem_default=33554432’ &gt;&gt; /etc/sysctl.conf”
 $ sudo sh -c “echo ‘net.core.rmem_max=33554432’ &gt;&gt; /etc/sysctl.conf”
 $ sudo sysctl -p</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Extract the tarball to your desired location:</dt><dd><p>$ tar -xvzf ArenaSDK_Linux_ARM64.tar.gz</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Run the ArenaSDK_Linux_ARM64.conf file</dt><dd><p>$ cd ~/Documents/ArenaSDK_v0.1.78_Linux_ARM64/ArenaSDK_Linux_ARM64
+</div></blockquote>
+<p>e) Extract the tarball to your desired location:
+.. code-block:: console</p>
+<blockquote>
+<div><p>$ tar -xvzf ArenaSDK_Linux_ARM64.tar.gz</p>
+</div></blockquote>
+<p>f) Run the ArenaSDK_Linux_ARM64.conf file
+.. code-block:: console</p>
+<blockquote>
+<div><p>$ cd ~/Documents/ArenaSDK_v0.1.78_Linux_ARM64/ArenaSDK_Linux_ARM64
 $ sudo sh Arena_SDK_ARM64.conf</p>
+</div></blockquote>
 </dd>
-</dl>
-</li>
-</ol>
-</dd>
-<dt>Install ImpactAcquire</dt><dd><ol class="loweralpha simple">
+<dt>Install ImpactAcquire</dt><dd><ol class="loweralpha">
 <li><p>Download latest version of ImpactAcquire-arm64-linux-X.X.X.sh from dhttp://static.matrix-vision.com/mvIMPACT_Acquire/</p></li>
 <li><p>Place ImpactAcquire-arm64-linux-X.X.X.sh in ‘~/.’</p></li>
-<li><dl class="simple">
-<dt>Install.</dt><dd><p>$ cd ~/
+<li><dl>
+<dt>Install.</dt><dd><div class="highlight-console notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<p>$ cd ~/
 $ ./ImpactAcquire-arm64-linux-X.X.X.sh</p>
 </dd>
 </dl>
 </li>
 </ol>
 </dd>
-<dt>Install Harvesters</dt><dd><ol class="loweralpha simple">
-<li><dl class="simple">
-<dt>Setup virtual environment.</dt><dd><p>$ python3 -m venv myvirtualenv</p>
+<dt>Install Harvesters</dt><dd><p>a) Setup virtual environment.
+.. code-block:: console</p>
+<blockquote>
+<div><p>$ python3 -m venv myvirtualenv</p>
+</div></blockquote>
+<p>b) Activate virtual environment.
+.. code-block:: console</p>
+<blockquote>
+<div><p>$ source ~/myvirtualenv/bin/activate</p>
+</div></blockquote>
+<p>c) Install Harvesters.
+.. code-block:: console</p>
+<blockquote>
+<div><p>$ pip install harvesters</p>
+</div></blockquote>
+<p>d) Install standard openCV.
+.. code-block:: console</p>
+<blockquote>
+<div><p>$ pip install opencv-python</p>
+</div></blockquote>
 </dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Activate virtual environment.</dt><dd><p>$ source ~/myvirtualenv/bin/activate</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Install Harvesters.</dt><dd><p>$ pip install harvesters</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Install standard openCV.</dt><dd><p>$ pip install opencv-python</p>
-</dd>
-</dl>
-</li>
-</ol>
-</dd>
-<dt>Run programs in Harvesters</dt><dd><ol class="loweralpha simple">
-<li><dl class="simple">
-<dt>Activate virtual environment.</dt><dd><p>$ source ~/myvirtualenv/bin/activate</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Set appropriate directory with python scripts.</dt><dd><p>$ cd ~/Documents</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Run desired python script.</dt><dd><p>$ python3 TestSample.py</p>
-</dd>
-</dl>
-</li>
-</ol>
+<dt>Run programs in Harvesters</dt><dd><p>a) Activate virtual environment.
+.. code-block:: console</p>
+<blockquote>
+<div><p>$ source ~/myvirtualenv/bin/activate</p>
+</div></blockquote>
+<p>b) Set appropriate directory with python scripts.
+.. code-block:: console</p>
+<blockquote>
+<div><p>$ cd ~/Documents</p>
+</div></blockquote>
+<p>c) Run desired python script.
+.. code-block:: console</p>
+<blockquote>
+<div><p>$ python3 TestSample.py</p>
+</div></blockquote>
 </dd>
 </dl>
 </section>
@@ -224,53 +221,51 @@ $ ./ImpactAcquire-arm64-linux-X.X.X.sh</p>
 <h2>Instructions for building sphinx documentation locally<a class="headerlink" href="#instructions-for-building-sphinx-documentation-locally" title="Link to this heading"></a></h2>
 <p>This section describes howw to build the sphinx documentation locally.</p>
 <blockquote>
-<div><ol class="loweralpha simple">
-<li><dl class="simple">
-<dt>Setup virtual environment.</dt><dd><p>$ python3 -m venv myvirtualenv</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Activate virtual environment.</dt><dd><p>$ source ~/myvirtualenv/bin/activate</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Install Harvesters.</dt><dd><p>$ pip install harvesters</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Install standard openCV.</dt><dd><p>$ pip install opencv-python</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Install matplotlib.</dt><dd><p>$ pip install matplotlib</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Install basic sphinx package.</dt><dd><p>$ pip install sphinx</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Install html theme for sphinx.</dt><dd><p>$ pip install sphinx_rtd_theme</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Install pdf builder for sphinx.</dt><dd><p>$ pip install sphinx-simplepdf</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Build sphinx</dt><dd><p>$ sphinx-build -M html source docs</p>
-</dd>
-</dl>
-</li>
-</ol>
+<div><p>a) Setup virtual environment.
+.. code-block:: console</p>
+<blockquote>
+<div><p>$ python3 -m venv myvirtualenv</p>
+</div></blockquote>
+<p>b) Activate virtual environment.
+.. code-block:: console</p>
+<blockquote>
+<div><p>$ source ~/myvirtualenv/bin/activate</p>
+</div></blockquote>
+<p>c) Install Harvesters.
+.. code-block:: console</p>
+<blockquote>
+<div><p>$ pip install harvesters</p>
+</div></blockquote>
+<p>d) Install standard openCV.
+.. code-block:: console</p>
+<blockquote>
+<div><p>$ pip install opencv-python</p>
+</div></blockquote>
+<p>e) Install matplotlib.
+.. code-block:: console</p>
+<blockquote>
+<div><p>$ pip install matplotlib</p>
+</div></blockquote>
+<p>f) Install basic sphinx package.
+.. code-block:: console</p>
+<blockquote>
+<div><p>$ pip install sphinx</p>
+</div></blockquote>
+<p>g) Install html theme for sphinx.
+.. code-block:: console</p>
+<blockquote>
+<div><p>$ pip install sphinx_rtd_theme</p>
+</div></blockquote>
+<p>h) Install pdf builder for sphinx.
+.. code-block:: console</p>
+<blockquote>
+<div><p>$ pip install sphinx-simplepdf</p>
+</div></blockquote>
+<p>i) Build sphinx.
+.. code-block:: console</p>
+<blockquote>
+<div><p>$ sphinx-build -b html source docs</p>
+</div></blockquote>
 </div></blockquote>
 </section>
 <section id="test-the-instrument-functionality">
