@@ -127,93 +127,124 @@
 </ol>
 </dd>
 <dt>Install ArenaSDK Software (ArenaSDK_v0.1.78_Linux_ARM64)</dt><dd><p><strong>Note</strong>: Full details in ‘README_ARM64.txt’</p>
-<p>a) Set jumbo frames
-.. code-block:: console</p>
-<blockquote>
-<div><p>$ sudo ip link set enp0s8 mtu 9000</p>
-</div></blockquote>
-<p>b) Set receive buffers
-.. code-block:: console</p>
-<blockquote>
-<div><p>$ sudo ethtool -g enp0s8
-$ sudo ethtool -G enp0s8 rx 4096</p>
-</div></blockquote>
-<p>c) Set socket buffer size
-.. code-block:: console</p>
-<blockquote>
-<div><p>$ sudo sh -c “echo ‘net.core.rmem_default=33554432’ &gt;&gt; /etc/sysctl.conf”
-$ sudo sh -c “echo ‘net.core.rmem_max=33554432’ &gt;&gt; /etc/sysctl.conf”
-$ sudo sysctl -p</p>
-</div></blockquote>
-<p>d) Reverse path filtering
-.. code-block:: console</p>
-<blockquote>
-<div><p>$ sudo sh -c “echo ‘net.core.rmem_default=33554432’ &gt;&gt; /etc/sysctl.conf”
-$ sudo sh -c “echo ‘net.core.rmem_max=33554432’ &gt;&gt; /etc/sysctl.conf”
-$ sudo sysctl -p</p>
-</div></blockquote>
-<p>e) Extract the tarball to your desired location:
-.. code-block:: console</p>
-<blockquote>
-<div><p>$ tar -xvzf ArenaSDK_Linux_ARM64.tar.gz</p>
-</div></blockquote>
-<p>f) Run the ArenaSDK_Linux_ARM64.conf file
-.. code-block:: console</p>
-<blockquote>
-<div><p>$ cd ~/Documents/ArenaSDK_v0.1.78_Linux_ARM64/ArenaSDK_Linux_ARM64
-$ sudo sh Arena_SDK_ARM64.conf</p>
-</div></blockquote>
-</dd>
-<dt>Install ImpactAcquire</dt><dd><ol class="loweralpha">
-<li><p>Download latest version of ImpactAcquire-arm64-linux-X.X.X.sh from dhttp://static.matrix-vision.com/mvIMPACT_Acquire/</p></li>
-<li><p>Place ImpactAcquire-arm64-linux-X.X.X.sh in ‘~/.’</p></li>
+<ol class="loweralpha">
 <li><dl>
-<dt>Install.</dt><dd><div class="highlight-console notranslate"><div class="highlight"><pre><span></span>
+<dt>Set jumbo frames</dt><dd><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo<span class="w"> </span>ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>enp0s8<span class="w"> </span>mtu<span class="w"> </span><span class="m">9000</span>
 </pre></div>
 </div>
-<p>$ cd ~/
-$ ./ImpactAcquire-arm64-linux-X.X.X.sh</p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Set receive buffers</dt><dd><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo<span class="w"> </span>ethtool<span class="w"> </span>-g<span class="w"> </span>enp0s8
+<span class="gp">$ </span>sudo<span class="w"> </span>ethtool<span class="w"> </span>-G<span class="w"> </span>enp0s8<span class="w"> </span>rx<span class="w"> </span><span class="m">4096</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Set socket buffer size</dt><dd><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo<span class="w"> </span>sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;echo &#39;net.core.rmem_default=33554432&#39; &gt;&gt; /etc/sysctl.conf&quot;</span>
+<span class="gp">$ </span>sudo<span class="w"> </span>sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;echo &#39;net.core.rmem_max=33554432&#39; &gt;&gt; /etc/sysctl.conf&quot;</span>
+<span class="gp">$ </span>sudo<span class="w"> </span>sysctl<span class="w"> </span>-p
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Reverse path filtering</dt><dd><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo<span class="w"> </span>sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;echo &#39;net.core.rmem_default=33554432&#39; &gt;&gt; /etc/sysctl.conf&quot;</span>
+<span class="gp">$ </span>sudo<span class="w"> </span>sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;echo &#39;net.core.rmem_max=33554432&#39; &gt;&gt; /etc/sysctl.conf&quot;</span>
+<span class="gp">$ </span>sudo<span class="w"> </span>sysctl<span class="w"> </span>-p
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Extract the tarball to your desired location:</dt><dd><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>tar<span class="w"> </span>-xvzf<span class="w"> </span>ArenaSDK_Linux_ARM64.tar.gz
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Run the ArenaSDK_Linux_ARM64.conf file</dt><dd><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span>~/Documents/ArenaSDK_v0.1.78_Linux_ARM64/ArenaSDK_Linux_ARM64
+<span class="gp">$ </span>sudo<span class="w"> </span>sh<span class="w"> </span>Arena_SDK_ARM64.conf
+</pre></div>
+</div>
 </dd>
 </dl>
 </li>
 </ol>
 </dd>
-<dt>Install Harvesters</dt><dd><p>a) Setup virtual environment.
-.. code-block:: console</p>
-<blockquote>
-<div><p>$ python3 -m venv myvirtualenv</p>
-</div></blockquote>
-<p>b) Activate virtual environment.
-.. code-block:: console</p>
-<blockquote>
-<div><p>$ source ~/myvirtualenv/bin/activate</p>
-</div></blockquote>
-<p>c) Install Harvesters.
-.. code-block:: console</p>
-<blockquote>
-<div><p>$ pip install harvesters</p>
-</div></blockquote>
-<p>d) Install standard openCV.
-.. code-block:: console</p>
-<blockquote>
-<div><p>$ pip install opencv-python</p>
-</div></blockquote>
+<dt>Install ImpactAcquire</dt><dd><ol class="loweralpha">
+<li><p>Download latest version of ImpactAcquire-arm64-linux-X.X.X.sh from dhttp://static.matrix-vision.com/mvIMPACT_Acquire/</p></li>
+<li><p>Place ImpactAcquire-arm64-linux-X.X.X.sh in ‘~/.’</p></li>
+<li><dl>
+<dt>Install.</dt><dd><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span>~/
+<span class="gp">$ </span>./ImpactAcquire-arm64-linux-X.X.X.sh
+</pre></div>
+</div>
 </dd>
-<dt>Run programs in Harvesters</dt><dd><p>a) Activate virtual environment.
-.. code-block:: console</p>
-<blockquote>
-<div><p>$ source ~/myvirtualenv/bin/activate</p>
-</div></blockquote>
-<p>b) Set appropriate directory with python scripts.
-.. code-block:: console</p>
-<blockquote>
-<div><p>$ cd ~/Documents</p>
-</div></blockquote>
-<p>c) Run desired python script.
-.. code-block:: console</p>
-<blockquote>
-<div><p>$ python3 TestSample.py</p>
-</div></blockquote>
+</dl>
+</li>
+</ol>
+</dd>
+<dt>Install Harvesters</dt><dd><ol class="loweralpha">
+<li><dl>
+<dt>Setup virtual environment.</dt><dd><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>myvirtualenv
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Activate virtual environment.</dt><dd><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">source</span><span class="w"> </span>~/myvirtualenv/bin/activate
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Install Harvesters.</dt><dd><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>harvesters
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Install standard openCV.</dt><dd><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>opencv-python
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+</ol>
+</dd>
+<dt>Run programs in Harvesters</dt><dd><ol class="loweralpha">
+<li><dl>
+<dt>Activate virtual environment.</dt><dd><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">source</span><span class="w"> </span>~/myvirtualenv/bin/activate
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Set appropriate directory with python scripts.</dt><dd><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span>~/Documents
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Run desired python script.</dt><dd><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python3<span class="w"> </span>TestSample.py
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+</ol>
 </dd>
 </dl>
 </section>
@@ -221,51 +252,71 @@ $ ./ImpactAcquire-arm64-linux-X.X.X.sh</p>
 <h2>Instructions for building sphinx documentation locally<a class="headerlink" href="#instructions-for-building-sphinx-documentation-locally" title="Link to this heading"></a></h2>
 <p>This section describes howw to build the sphinx documentation locally.</p>
 <blockquote>
-<div><p>a) Setup virtual environment.
-.. code-block:: console</p>
-<blockquote>
-<div><p>$ python3 -m venv myvirtualenv</p>
-</div></blockquote>
-<p>b) Activate virtual environment.
-.. code-block:: console</p>
-<blockquote>
-<div><p>$ source ~/myvirtualenv/bin/activate</p>
-</div></blockquote>
-<p>c) Install Harvesters.
-.. code-block:: console</p>
-<blockquote>
-<div><p>$ pip install harvesters</p>
-</div></blockquote>
-<p>d) Install standard openCV.
-.. code-block:: console</p>
-<blockquote>
-<div><p>$ pip install opencv-python</p>
-</div></blockquote>
-<p>e) Install matplotlib.
-.. code-block:: console</p>
-<blockquote>
-<div><p>$ pip install matplotlib</p>
-</div></blockquote>
-<p>f) Install basic sphinx package.
-.. code-block:: console</p>
-<blockquote>
-<div><p>$ pip install sphinx</p>
-</div></blockquote>
-<p>g) Install html theme for sphinx.
-.. code-block:: console</p>
-<blockquote>
-<div><p>$ pip install sphinx_rtd_theme</p>
-</div></blockquote>
-<p>h) Install pdf builder for sphinx.
-.. code-block:: console</p>
-<blockquote>
-<div><p>$ pip install sphinx-simplepdf</p>
-</div></blockquote>
-<p>i) Build sphinx.
-.. code-block:: console</p>
-<blockquote>
-<div><p>$ sphinx-build -b html source docs</p>
-</div></blockquote>
+<div><ol class="loweralpha">
+<li><dl>
+<dt>Setup virtual environment.</dt><dd><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>myvirtualenv
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Activate virtual environment.</dt><dd><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">source</span><span class="w"> </span>~/myvirtualenv/bin/activate
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Install Harvesters.</dt><dd><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>harvesters
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Install standard openCV.</dt><dd><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>opencv-python
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Install matplotlib.</dt><dd><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>matplotlib
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Install basic sphinx package.</dt><dd><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>sphinx
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Install html theme for sphinx.</dt><dd><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>sphinx_rtd_theme
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Install pdf builder for sphinx.</dt><dd><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>sphinx-simplepdf
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Build sphinx.</dt><dd><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sphinx-build<span class="w"> </span>-b<span class="w"> </span>html<span class="w"> </span><span class="nb">source</span><span class="w"> </span>docs
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+</ol>
 </div></blockquote>
 </section>
 <section id="test-the-instrument-functionality">
