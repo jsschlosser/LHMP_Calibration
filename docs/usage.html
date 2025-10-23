@@ -46,8 +46,9 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#acknowledgements">Acknowledgements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#copyright">Copyright</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#test-the-lhmp-functionality">Test the LHMP functionality</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#configuring-the-raspberry-pi">Configuring the Raspberry Pi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#instructions-for-building-sphinx-documentation-locally">Instructions for building sphinx documentation locally</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test-the-instrument-functionality">Test the instrument functionality</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#TestSample.Run"><code class="docutils literal notranslate"><span class="pre">Run()</span></code></a></li>
 </ul>
 </li>
@@ -98,12 +99,182 @@
 <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
 <p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
 </section>
-<section id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
-<p>To use LHMP, download the source files from the Repo.</p>
+<section id="configuring-the-raspberry-pi">
+<h2>Configuring the Raspberry Pi<a class="headerlink" href="#configuring-the-raspberry-pi" title="Link to this heading"></a></h2>
+<p>This section summarizes the steps required to setup the environment needed to run a GigE Vision (i.e., genicam) camera on a Raspberry Pi 4b. Here we use a Pheonix 5.0 Polarization camera (LUCID Vision Labs Inc., 2023) that is built around Sony’s IMX250MYR CMOS.</p>
+<dl class="simple">
+<dt>Hardware Requirements</dt><dd><ol class="arabic simple">
+<li><dl class="simple">
+<dt>Any GigE vision camera should work however it must be a GenICam compliant machine vision camera/device.</dt><dd><ol class="loweralpha simple">
+<li><p>Power supply.</p></li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Rasberry Pi 4b running Debian GNU/Linux 12 (bookworm) x64. Prefer remote connection with Raspberry Pi Connect.</dt><dd><ol class="loweralpha simple">
+<li><p>Power supply.</p></li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><p>Ethernet Cable.</p></li>
+</ol>
+</dd>
+<dt>Setup Hardware</dt><dd><ol class="loweralpha simple">
+<li><p>Connect camera to Raspberry Pi via ethernet cable.</p></li>
+<li><p>Power Raspberry Pi.</p></li>
+</ol>
+</dd>
+<dt>Install ArenaSDK Software (ArenaSDK_v0.1.78_Linux_ARM64)</dt><dd><p><strong>Note</strong>: Full details in ‘README_ARM64.txt’</p>
+<ol class="loweralpha simple">
+<li><dl class="simple">
+<dt>Set jumbo frames</dt><dd><p>$ sudo ip link set enp0s8 mtu 9000</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Set receive buffers</dt><dd><p>$ sudo ethtool -g enp0s8
+$ sudo ethtool -G enp0s8 rx 4096</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Set socket buffer size</dt><dd><p>$ sudo sh -c “echo ‘net.core.rmem_default=33554432’ &gt;&gt; /etc/sysctl.conf”
+$ sudo sh -c “echo ‘net.core.rmem_max=33554432’ &gt;&gt; /etc/sysctl.conf”
+$ sudo sysctl -p</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Reverse path filtering</dt><dd><p>$ sudo sh -c “echo ‘net.core.rmem_default=33554432’ &gt;&gt; /etc/sysctl.conf”
+$ sudo sh -c “echo ‘net.core.rmem_max=33554432’ &gt;&gt; /etc/sysctl.conf”
+$ sudo sysctl -p</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Extract the tarball to your desired location:</dt><dd><p>$ tar -xvzf ArenaSDK_Linux_ARM64.tar.gz</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Run the ArenaSDK_Linux_ARM64.conf file</dt><dd><p>$ cd ~/Documents/ArenaSDK_v0.1.78_Linux_ARM64/ArenaSDK_Linux_ARM64
+$ sudo sh Arena_SDK_ARM64.conf</p>
+</dd>
+</dl>
+</li>
+</ol>
+</dd>
+<dt>Install ImpactAcquire</dt><dd><ol class="loweralpha simple">
+<li><p>Download latest version of ImpactAcquire-arm64-linux-X.X.X.sh from dhttp://static.matrix-vision.com/mvIMPACT_Acquire/</p></li>
+<li><p>Place ImpactAcquire-arm64-linux-X.X.X.sh in ‘~/.’</p></li>
+<li><dl class="simple">
+<dt>Install.</dt><dd><p>$ cd ~/
+$ ./ImpactAcquire-arm64-linux-X.X.X.sh</p>
+</dd>
+</dl>
+</li>
+</ol>
+</dd>
+<dt>Install Harvesters</dt><dd><ol class="loweralpha simple">
+<li><dl class="simple">
+<dt>Setup virtual environment.</dt><dd><p>$ python3 -m venv myvirtualenv</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Activate virtual environment.</dt><dd><p>$ source ~/myvirtualenv/bin/activate</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Install Harvesters.</dt><dd><p>$ pip install harvesters</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Install standard openCV.</dt><dd><p>$ pip install opencv-python</p>
+</dd>
+</dl>
+</li>
+</ol>
+</dd>
+<dt>Run programs in Harvesters</dt><dd><ol class="loweralpha simple">
+<li><dl class="simple">
+<dt>Activate virtual environment.</dt><dd><p>$ source ~/myvirtualenv/bin/activate</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Set appropriate directory with python scripts.</dt><dd><p>$ cd ~/Documents</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Run desired python script.</dt><dd><p>$ python3 TestSample.py</p>
+</dd>
+</dl>
+</li>
+</ol>
+</dd>
+</dl>
 </section>
-<section id="test-the-lhmp-functionality">
-<h2>Test the LHMP functionality<a class="headerlink" href="#test-the-lhmp-functionality" title="Link to this heading"></a></h2>
+<section id="instructions-for-building-sphinx-documentation-locally">
+<h2>Instructions for building sphinx documentation locally<a class="headerlink" href="#instructions-for-building-sphinx-documentation-locally" title="Link to this heading"></a></h2>
+<p>This section describes howw to build the sphinx documentation locally.</p>
+<blockquote>
+<div><ol class="loweralpha simple">
+<li><dl class="simple">
+<dt>Setup virtual environment.</dt><dd><p>$ python3 -m venv myvirtualenv</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Activate virtual environment.</dt><dd><p>$ source ~/myvirtualenv/bin/activate</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Install Harvesters.</dt><dd><p>$ pip install harvesters</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Install standard openCV.</dt><dd><p>$ pip install opencv-python</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Install matplotlib.</dt><dd><p>$ pip install matplotlib</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Install basic sphinx package.</dt><dd><p>$ pip install sphinx</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Install html theme for sphinx.</dt><dd><p>$ pip install sphinx_rtd_theme</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Install pdf builder for sphinx.</dt><dd><p>$ pip install sphinx-simplepdf</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Build sphinx</dt><dd><p>$ sphinx-build -M html source docs</p>
+</dd>
+</dl>
+</li>
+</ol>
+</div></blockquote>
+</section>
+<section id="test-the-instrument-functionality">
+<h2>Test the instrument functionality<a class="headerlink" href="#test-the-instrument-functionality" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="TestSample.Run">
 <span class="sig-prename descclassname"><span class="pre">TestSample.</span></span><span class="sig-name descname"><span class="pre">Run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#TestSample.Run" title="Link to this definition"></a></dt>
