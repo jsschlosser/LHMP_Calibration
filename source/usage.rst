@@ -32,9 +32,9 @@ Setup Hardware
 	b) Power Raspberry Pi.
 
 Install ArenaSDK Software (ArenaSDK_v0.1.78_Linux_ARM64)
-.. note::
+	.. note::
 
-	Full details in 'README_ARM64.txt'
+		Full details in 'README_ARM64.txt'
 
 
 	a) Set jumbo frames
